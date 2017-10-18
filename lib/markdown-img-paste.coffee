@@ -32,8 +32,8 @@ module.exports =
         img = clipboard.readImage()
         if img.isEmpty() then return
 
-        #Sets filename based on datetime
-        filename = "markdown-img-paste-#{new Date().format()}.png"
+        #Sets filename based on datetime. mip=markdown-img-paste
+        filename = "mip-#{new Date().format()}.png"
 
         #Sets up image assets folder
         curDirectory = dirname(cursor.getPath())
@@ -42,7 +42,8 @@ module.exports =
         #Checks if assets folder is to be used
         if atom.config.get 'markdown-img-paste.use_assets_folder'
           #Finds assets directory path
-          assetsDirectory = join(curDirectory, "assets") + "/"
+          str = cursor.getPath()
+          assetsDirectory = str.substr(0,str.indexOf(str.substr(-3))) + "/"
 
           #Creates directory if necessary
           if !fs.existsSync assetsDirectory
@@ -87,10 +88,6 @@ module.exports =
         #保存在本地
         if !atom.config.get('markdown-img-paste.upload_to_qiniu')
             mdtext = '![]('
-
-            if atom.config.get 'markdown-img-paste.use_assets_folder'
-                mdtext += 'assets/'
-
             mdtext += filename + ')'
 
             paste_mdtext cursor, mdtext

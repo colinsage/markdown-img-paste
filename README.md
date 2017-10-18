@@ -1,5 +1,10 @@
 # Markdown-img-paste
 
+## ChangeLog
+
+### 2017.10.18
+1. in local save mode, support hexo assets.
+
 ## Usage
 
 1. take a screenshot or copy a image
